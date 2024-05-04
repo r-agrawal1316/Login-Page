@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/login.css" />
+    <title>Login</title>
+  </head>
+
+  <body>
+    <div class="center">
+      <h1>Login</h1>
+      <form id="loginForm">
+        <div class="txt-field">
+          <input type="email" name="email" id="email" required />
+          <span></span>
+          <label>Email</label>
+        </div>
+        <div class="txt-field">
+          <input type="password" name="password" id="password" required />
+          <span></span>
+          <label>Password</label>
+        </div>
+        <br />
+        <div class="pass"><a href="/forgotPassword">Forgot Password??</a></div>
+        <div id="error_message"></div>
+        <button type="submit">Submit</button>
+        <div class="signup_link">
+          Not a member? <a href="/SignUp">SignUp</a>
+        </div>
+      </form>
+    </div>
+  </body>
+  <script>
+    const form = document.getElementById("loginForm");
+    const emailInput = document.getElementById("email");
+    const passwordInput = document.getElementById("password");
+    const errorMessageDiv = document.getElementById("error_message");
+    const correctCredentials = [
+      {
+        email: "user1@example.com",
+        password: "password123",
+      },
+      {
+        email: "user2@example.com",
+        password: "qwerty456",
+      },
+      {
+        email: "user3@example.com",
+        password: "111111",
+      },
+      {
+        email: "user4@example.com",
+        password: "222222",
+      },
+      {
+        email: "user5@example.com",
+        password: "333333",
+      },
+    ];
+
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const email = emailInput.value.trim();
+      const password = passwordInput.value.trim();
+
+      if (!email || !email.match(/\S+@\S+\.\S+/)) {
+        errorMessageDiv.innerText = "Please enter a valid email address.";
+        return;
+      }
+
+      const correctCredential = correctCredentials.find(
+        (credential) =>
+          credential.email === email && credential.password === password
+      );
+
+      if (!correctCredential) {
+        errorMessageDiv.innerText = "Invalid email or password.";
+        return;
+      }
+      form.submit();
+    });
+  </script>
+</html>
